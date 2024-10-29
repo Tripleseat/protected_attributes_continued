@@ -6,6 +6,7 @@ require 'active_record/mass_assignment_security'
 require 'active_model/mass_assignment_security'
 require 'models/book'
 require 'models/person'
+require 'pry'
 
 
 class StrongParametersFallbackTest < ActiveSupport::TestCase
@@ -45,7 +46,7 @@ class StrongParametersFallbackTest < ActiveSupport::TestCase
     if ActiveRecord::VERSION::MAJOR == 5 && ActiveRecord::VERSION::MINOR == 0
       untrusted_params = untrusted_params.to_h
     end
-    assert_equal({}, klass.new.send(:sanitize_for_mass_assignment, untrusted_params))
+    assert_equal({}, klass.new.send(:sanitize_for_mass_assignment, untrusted_params).permit!.to_h)
   end
 
   test "with PORO including MassAssignmentSecurity that does not use a protection macro" do

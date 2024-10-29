@@ -6,7 +6,9 @@ def get_env(name)
   (ENV[name] && !ENV[name].empty?) ? ENV[name] : nil
 end
 
-gem 'rails', get_env("RAILS_VERSION")
+gem 'rails', '7.2.1.1'
+gem 'appraisal'
+gem 'pry-rails'
 
 db_gem = get_env("DB_GEM") || "sqlite3"
 if db_gem == "sqlite3"
