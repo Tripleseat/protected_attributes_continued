@@ -58,7 +58,7 @@ module ActiveRecord
 
         attributes                  = new_attributes.stringify_keys
         multi_parameter_attributes  = []
-        nested_parameter_attributes = []
+        # nested_parameter_attributes = []
         previous_options            = @mass_assignment_options
         @mass_assignment_options    = options
 
@@ -69,14 +69,14 @@ module ActiveRecord
         attributes.each do |k, v|
           if k.include?("(")
             multi_parameter_attributes << [ k, v ]
-          elsif v.is_a?(Hash)
-            nested_parameter_attributes << [ k, v ]
+          # elsif v.is_a?(Hash)
+          #   nested_parameter_attributes << [ k, v ]
           else
             _assign_attribute(k, v)
           end
         end
 
-        assign_nested_parameter_attributes(nested_parameter_attributes) unless nested_parameter_attributes.empty?
+        # assign_nested_parameter_attributes(nested_parameter_attributes) unless nested_parameter_attributes.empty?
         assign_multiparameter_attributes(multi_parameter_attributes) unless multi_parameter_attributes.empty?
       ensure
         @mass_assignment_options = previous_options
