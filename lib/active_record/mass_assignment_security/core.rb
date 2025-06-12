@@ -10,18 +10,17 @@ module ActiveRecord
         init_internals
         initialize_internals_callback
 
-        # +options+ argument is only needed to make protected_attributes gem easier to hook.
-        init_attributes(attributes, options) if attributes
+        # Don't pass attributes to super - we'll handle them ourselves
+        super()
+
+        # Apply mass assignment protection before assigning attributes
+        assign_attributes(attributes, options) if attributes
 
         yield self if block_given?
         _run_initialize_callbacks
       end
 
       private
-
-      def init_attributes(attributes, options)
-        assign_attributes(attributes, options)
-      end
 
       def init_internals
         super
